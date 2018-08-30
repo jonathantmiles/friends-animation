@@ -47,7 +47,7 @@ class FriendsTableViewController: UITableViewController {
         let cell = tableView.cellForRow(at: indexPath)
         
         navigationControllerDelegate.sourceCell = cell
-        
+        navigationControllerDelegate.destinationDetailVC = destVC
     }
     
     // MARK: - Properties
