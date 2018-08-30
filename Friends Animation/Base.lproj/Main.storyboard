@@ -57,7 +57,7 @@
                                 <connections>
                                     <outlet property="friendNameLabel" destination="aht-Eq-FNk" id="pm7-lY-CbC"/>
                                     <outlet property="friendPicImage" destination="hlx-Z6-l0I" id="KYt-Yb-r2b"/>
-                                    <segue destination="H7o-Ko-j0s" kind="show" id="Hyq-lf-TOX"/>
+                                    <segue destination="H7o-Ko-j0s" kind="show" identifier="ShowDetail" id="Hyq-lf-TOX"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

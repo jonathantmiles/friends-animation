@@ -12,9 +12,13 @@ class NavigationControllerDelegate: NSObject, UINavigationControllerDelegate {
     
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
-        // set animator's properties
-        animator.sourceCell = sourceCell
-        animator.destinationDetailVC = destinationDetailVC
+        if operation == .push {
+            
+            // set animator's properties
+            animator.sourceCell = sourceCell
+            animator.destinationDetailVC = destinationDetailVC
+            
+        } 
         
         return animator
     }

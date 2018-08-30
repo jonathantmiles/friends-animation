@@ -56,12 +56,31 @@ class ImageTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         // dummy image
         let photoImageInitialFrame = containerView.convert(sourcePhotoView.bounds, from: sourcePhotoView)
         let animatedPhotoImage = UIImageView(frame: photoImageInitialFrame)
-        animatedPhotoImage
+        animatedPhotoImage.image = sourcePhotoView.image
+        containerView.addSubview(animatedPhotoImage)
         
-        // setup animation by adding the dummy elements to the animation
-        // remember to restore opacity of original elements
-        
-        
+        // setup animation by adding the dummy elements to the animation and making the animation View opaque
+        let duration = transitionDuration(using: transitionContext)
+        toView.layoutIfNeeded()
+        UIView.animate(withDuration: duration, animations: {
+            animatedPhotoImage.frame = containerView.convert(destinationPhotoView.bounds, from: destinationPhotoView)
+            animatedNameLabel.frame = containerView.convert(destinationNameLabel.bounds, from: destinationNameLabel)
+            toView.alpha = 1.0
+        }) { (success) in
+            // remember to restore opacity of original elements
+            sourcePhotoView.alpha = 1.0
+            sourceNameLabel.alpha = 1.0
+            
+            destinationPhotoView.alpha = 1.0
+            destinationNameLabel.alpha = 1.0
+            
+            // remove animated views from containing superview
+            animatedPhotoImage.removeFromSuperview()
+            animatedNameLabel.removeFromSuperview()
+            
+            // complete transition if transition wasn't cancelled (by user)
+            transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
+        }
         
     }
     
@@ -70,5 +89,7 @@ class ImageTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     // properties set by navigationControllerDelegate and implicitly unwrapped
     var sourceCell: FriendsTableViewCell!
     var destinationDetailVC: FriendDetailViewController!
+    var destinationImageView: UIImageView!
+    var destinationNameLabel: UILabel!
     
 }
