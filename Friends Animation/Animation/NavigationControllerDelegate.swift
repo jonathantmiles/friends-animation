@@ -15,10 +15,25 @@ class NavigationControllerDelegate: NSObject, UINavigationControllerDelegate {
         if operation == .push {
             
             // set animator's properties
-            animator.sourceCell = sourceCell
-            animator.destinationDetailVC = destinationDetailVC
+            animator.sourceImageView = sourceCell!.friendPicImage
+            animator.sourceNameLabel = sourceCell!.friendNameLabel
             
-        } 
+            destinationDetailVC?.loadViewIfNeeded()
+            
+            animator.destinationImageView = destinationDetailVC!.friendPicLageImage
+            animator.destinationNameLabel = destinationDetailVC!.nameLabel
+            
+        } else {
+            
+            destinationDetailVC?.loadViewIfNeeded()
+            
+            animator.sourceImageView = destinationDetailVC!.friendPicLageImage
+            animator.sourceNameLabel = destinationDetailVC!.nameLabel
+            
+            animator.destinationImageView = sourceCell!.friendPicImage
+            animator.destinationNameLabel = sourceCell!.friendNameLabel
+            
+        }
         
         return animator
     }

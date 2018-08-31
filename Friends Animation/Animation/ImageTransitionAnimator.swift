@@ -31,26 +31,26 @@ class ImageTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         containerView.addSubview(toView)
         
         // declare original elements & implicitly unwrap
-        let sourcePhotoView = sourceCell.friendPicImage!
-        let destinationPhotoView = destinationDetailVC.friendPicLageImage!
+        let sourcePhotoView = sourceImageView!
+        let destinationPhotoView = destinationImageView!
         
-        let sourceNameLabel = sourceCell.friendNameLabel!
-        let destinationNameLabel = destinationDetailVC.nameLabel!
+        let sourceLabel = sourceNameLabel!
+        let destinationLabel = destinationNameLabel!
         
         // hide original elements
         sourcePhotoView.alpha = 0.0
         destinationPhotoView.alpha = 0.0
         
-        sourceNameLabel.alpha = 0.0
-        destinationNameLabel.alpha = 0.0
+        sourceLabel.alpha = 0.0
+        destinationLabel.alpha = 0.0
         
         // setup transition view by adding dummy copies of moving elements to it
         
         // dummy label
-        let nameLabelInitialFrame = containerView.convert(sourceNameLabel.bounds, from: sourceNameLabel)
+        let nameLabelInitialFrame = containerView.convert(sourceLabel.bounds, from: sourceLabel)
         let animatedNameLabel = UILabel(frame: nameLabelInitialFrame)
-        animatedNameLabel.text = sourceNameLabel.text
-        animatedNameLabel.font = sourceNameLabel.font
+        animatedNameLabel.text = sourceLabel.text
+        animatedNameLabel.font = sourceLabel.font
         containerView.addSubview(animatedNameLabel)
         
         // dummy image
@@ -64,15 +64,15 @@ class ImageTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         toView.layoutIfNeeded()
         UIView.animate(withDuration: duration, animations: {
             animatedPhotoImage.frame = containerView.convert(destinationPhotoView.bounds, from: destinationPhotoView)
-            animatedNameLabel.frame = containerView.convert(destinationNameLabel.bounds, from: destinationNameLabel)
+            animatedNameLabel.frame = containerView.convert(destinationLabel.bounds, from: destinationLabel)
             toView.alpha = 1.0
         }) { (success) in
             // remember to restore opacity of original elements
             sourcePhotoView.alpha = 1.0
-            sourceNameLabel.alpha = 1.0
+            sourceLabel.alpha = 1.0
             
             destinationPhotoView.alpha = 1.0
-            destinationNameLabel.alpha = 1.0
+            destinationLabel.alpha = 1.0
             
             // remove animated views from containing superview
             animatedPhotoImage.removeFromSuperview()
@@ -87,9 +87,11 @@ class ImageTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     // MARK: - Properties
     
     // properties set by navigationControllerDelegate and implicitly unwrapped
-    var sourceCell: FriendsTableViewCell!
-    var destinationDetailVC: FriendDetailViewController!
-    var destinationImageView: UIImageView!
-    var destinationNameLabel: UILabel!
+    // var sourceCell: FriendsTableViewCell!
+    // var destinationDetailVC: FriendDetailViewController!
+    var sourceImageView: UIImageView?
+    var sourceNameLabel: UILabel?
+    var destinationImageView: UIImageView?
+    var destinationNameLabel: UILabel?
     
 }

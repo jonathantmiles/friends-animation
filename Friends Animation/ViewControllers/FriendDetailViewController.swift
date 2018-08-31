@@ -10,6 +10,12 @@ import UIKit
 
 class FriendDetailViewController: UIViewController {
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // updateViews()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,12 +39,12 @@ class FriendDetailViewController: UIViewController {
     */
     
     func updateViews() {
-        guard let friend = friend else { return }
-        
-        self.title = friend.name
-        friendPicLageImage.image = friend.photo
-        nameLabel.text = friend.name
-        descLabel.text = friend.description
+            guard let friend = self.friend else { return }
+            
+            self.title = friend.name
+            self.friendPicLageImage.image = friend.photo
+            self.nameLabel.text = friend.name
+            self.descLabel.text = friend.description
         
     }
     
